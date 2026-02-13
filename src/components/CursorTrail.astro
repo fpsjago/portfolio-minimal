@@ -1,0 +1,113 @@
+---
+// Custom cursor trail component (from our custom-cursors-library.md)
+// Fixed for View Transitions compatibility
+---
+
+<div id="cursor-trail" transition:persist></div>
+
+<script is:inline>
+	// Global state to prevent multiple initializations
+	if (!window.cursorTrailState) {
+		window.cursorTrailState = {
+			initialized: false,
+			animationId: null,
+			mouseX: 0,
+			mouseY: 0,
+			cursorX: 0,
+			cursorY: 0
+		};
+	}
+
+	function initCursorTrail() {
+		// Only run on non-touch devices
+		if (!window.matchMedia('(pointer: fine)').matches) return;
+
+		const cursor = document.getElementById('cursor-trail');
+		if (!cursor) return;
+
+		// Prevent multiple initializations
+		if (window.cursorTrailState.initialized) {
+			updateInteractiveElements();
+			return;
+		}
+		window.cursorTrailState.initialized = true;
+
+		// Track mouse position
+		const handleMouseMove = (e) => {
+			window.cursorTrailState.mouseX = e.clientX;
+			window.cursorTrailState.mouseY = e.clientY;
+		};
+		window.addEventListener('mousemove', handleMouseMove);
+
+		// Smooth cursor follow with easing
+		function animate() {
+			const state = window.cursorTrailState;
+			const ease = 0.15;
+			state.cursorX += (state.mouseX - state.cursorX) * ease;
+			state.cursorY += (state.mouseY - state.cursorY) * ease;
+
+			const cursorEl = document.getElementById('cursor-trail');
+			if (cursorEl) {
+				cursorEl.style.transform = `translate(${state.cursorX}px, ${state.cursorY}px)`;
+			}
+
+			state.animationId = requestAnimationFrame(animate);
+		}
+
+		animate();
+		updateInteractiveElements();
+	}
+
+	function updateInteractiveElements() {
+		const cursor = document.getElementById('cursor-trail');
+		if (!cursor) return;
+
+		// Remove old listeners by replacing with new query
+		const interactiveElements = document.querySelectorAll('a, button, [role="button"]');
+
+		interactiveElements.forEach((el) => {
+			el.addEventListener('mouseenter', () => {
+				cursor.classList.add('hover');
+			});
+			el.addEventListener('mouseleave', () => {
+				cursor.classList.remove('hover');
+			});
+		});
+	}
+
+	// Initialize on first load
+	document.addEventListener('DOMContentLoaded', initCursorTrail);
+
+	// Re-initialize interactive elements after View Transitions navigation
+	document.addEventListener('astro:page-load', () => {
+		updateInteractiveElements();
+	});
+</script>
+
+<style>
+	#cursor-trail {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 40px;
+		height: 40px;
+		background: radial-gradient(circle, rgba(212, 175, 55, 0.4), transparent);
+		border-radius: 50%;
+		pointer-events: none;
+		z-index: 9998;
+		mix-blend-mode: screen;
+		transition: width 0.2s, height 0.2s;
+	}
+
+	#cursor-trail.hover {
+		width: 60px;
+		height: 60px;
+	}
+
+	/* Hide on touch devices */
+	@media (pointer: coarse) {
+		#cursor-trail {
+			display: none;
+		}
+	}
+</style>

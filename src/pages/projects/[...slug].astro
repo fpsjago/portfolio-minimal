@@ -1,0 +1,131 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+
+export async function getStaticPaths() {
+	const projects = await getCollection('projects');
+	return projects.map(project => ({
+		params: { slug: project.slug },
+		props: { project },
+	}));
+}
+
+const { project } = Astro.props;
+const { Content } = await project.render();
+---
+
+<Layout title={`${project.data.title} — Portfolio`}>
+	<article class="project-detail">
+		<div class="container">
+			<a href="/" class="back">
+				<svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+					<path d="M19 12H5M5 12L12 19M5 12L12 5" stroke="currentColor" stroke-width="2"/>
+				</svg>
+				Back to Home
+			</a>
+
+			<header class="header">
+				<p class="role">{project.data.role}</p>
+				<h1>{project.data.title}</h1>
+				<p class="year">{project.data.year}</p>
+			</header>
+
+			<div class="content">
+				<Content />
+			</div>
+		</div>
+	</article>
+</Layout>
+
+<style>
+	.project-detail {
+		min-height: 100vh;
+		padding: var(--space-xl) 5%;
+	}
+
+	.container {
+		max-width: 800px;
+		margin: 0 auto;
+	}
+
+	.back {
+		display: inline-flex;
+		align-items: center;
+		gap: 8px;
+		font-size: 14px;
+		font-weight: 500;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		margin-bottom: var(--space-lg);
+		transition: all 0.2s;
+	}
+
+	.back:hover {
+		gap: 12px;
+	}
+
+	.header {
+		margin-bottom: var(--space-xl);
+		padding-bottom: var(--space-lg);
+		border-bottom: 1px solid rgba(250, 250, 250, 0.1);
+	}
+
+	.role {
+		font-size: 14px;
+		font-weight: 500;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		color: var(--accent);
+		margin-bottom: var(--space-sm);
+	}
+
+	h1 {
+		font-size: clamp(48px, 8vw, 72px);
+		margin-bottom: var(--space-sm);
+	}
+
+	.year {
+		font-size: 16px;
+		color: var(--text-secondary);
+	}
+
+	.content {
+		line-height: 1.8;
+	}
+
+	.content :global(h2) {
+		font-size: clamp(32px, 5vw, 48px);
+		margin-top: var(--space-xl);
+		margin-bottom: var(--space-md);
+	}
+
+	.content :global(h3) {
+		font-size: clamp(24px, 3vw, 32px);
+		margin-top: var(--space-lg);
+		margin-bottom: var(--space-sm);
+	}
+
+	.content :global(p) {
+		margin-bottom: var(--space-md);
+		color: var(--text-secondary);
+	}
+
+	.content :global(ul) {
+		list-style: none;
+		margin-bottom: var(--space-md);
+	}
+
+	.content :global(li) {
+		padding-left: var(--space-md);
+		position: relative;
+		margin-bottom: var(--space-xs);
+		color: var(--text-secondary);
+	}
+
+	.content :global(li::before) {
+		content: '—';
+		position: absolute;
+		left: 0;
+		color: var(--accent);
+	}
+</style>

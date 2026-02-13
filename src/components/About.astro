@@ -1,0 +1,156 @@
+---
+---
+
+<section class="about">
+	<div class="container">
+		<div class="grid">
+			<div class="left">
+				<h2 class="fade-in">About</h2>
+			</div>
+			<div class="right">
+				<p class="large fade-in-delay">
+					I'm a creative developer specializing in building exceptional digital experiences.
+					With a focus on clean code, thoughtful design, and user-centric solutions.
+				</p>
+				<div class="skills fade-in-delay-2">
+					<div class="skill-group">
+						<h4>Development</h4>
+						<ul>
+							<li>React / Next.js</li>
+							<li>TypeScript</li>
+							<li>Node.js</li>
+							<li>PostgreSQL</li>
+						</ul>
+					</div>
+					<div class="skill-group">
+						<h4>Design</h4>
+						<ul>
+							<li>UI/UX Design</li>
+							<li>Design Systems</li>
+							<li>Figma</li>
+							<li>Webflow</li>
+						</ul>
+					</div>
+					<div class="skill-group">
+						<h4>Creative</h4>
+						<ul>
+							<li>3D Animation</li>
+							<li>WebGL</li>
+							<li>Motion Design</li>
+							<li>Interactive Art</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<style>
+	.about {
+		min-height: 100vh;
+		padding: var(--space-xl) 5%;
+		display: flex;
+		align-items: center;
+	}
+
+	.container {
+		max-width: 1200px;
+		margin: 0 auto;
+		width: 100%;
+	}
+
+	.grid {
+		display: grid;
+		grid-template-columns: 1fr 2fr;
+		gap: var(--space-xl);
+	}
+
+	.large {
+		font-size: clamp(24px, 3vw, 32px);
+		line-height: 1.4;
+		color: var(--text-primary);
+		font-weight: 300;
+		margin-bottom: var(--space-lg);
+	}
+
+	.skills {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: var(--space-lg);
+	}
+
+	.skill-group h4 {
+		font-family: var(--font-body);
+		font-size: 14px;
+		font-weight: 500;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		color: var(--accent);
+		margin-bottom: var(--space-sm);
+	}
+
+	.skill-group ul {
+		list-style: none;
+	}
+
+	.skill-group li {
+		font-size: 14px;
+		color: var(--text-secondary);
+		margin-bottom: 8px;
+	}
+
+	/* Scroll animations */
+	.fade-in {
+		opacity: 0;
+		transform: translateY(60px);
+		animation: fade-slide-up linear both;
+		animation-timeline: view();
+		animation-range: entry 0% cover 40%;
+	}
+
+	.fade-in-delay {
+		opacity: 0;
+		transform: translateY(60px);
+		animation: fade-slide-up linear both;
+		animation-timeline: view();
+		animation-range: entry 0% cover 40%;
+		animation-delay: 0.1s;
+	}
+
+	.fade-in-delay-2 {
+		opacity: 0;
+		transform: translateY(60px);
+		animation: fade-slide-up linear both;
+		animation-timeline: view();
+		animation-range: entry 0% cover 40%;
+		animation-delay: 0.2s;
+	}
+
+	@keyframes fade-slide-up {
+		from {
+			opacity: 0;
+			transform: translateY(60px);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+
+	@media (max-width: 768px) {
+		.grid {
+			grid-template-columns: 1fr;
+			gap: var(--space-lg);
+		}
+
+		.skills {
+			grid-template-columns: 1fr;
+			gap: var(--space-md);
+		}
+
+		.large {
+			font-size: 20px;
+		}
+	}
+</style>

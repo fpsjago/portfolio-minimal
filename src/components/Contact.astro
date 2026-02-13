@@ -1,0 +1,154 @@
+---
+---
+
+<section class="contact">
+	<div class="container">
+		<h2 class="fade-in">Let's Work<br />Together</h2>
+		<div class="contact-info fade-in-delay">
+			<a href="mailto:hello@example.com" class="email">hello@example.com</a>
+			<div class="social">
+				<a href="https://github.com" target="_blank" rel="noopener">GitHub</a>
+				<a href="https://twitter.com" target="_blank" rel="noopener">Twitter</a>
+				<a href="https://linkedin.com" target="_blank" rel="noopener">LinkedIn</a>
+				<a href="https://dribbble.com" target="_blank" rel="noopener">Dribbble</a>
+			</div>
+		</div>
+		<footer class="footer fade-in-delay-2">
+			<p>&copy; {new Date().getFullYear()} All rights reserved</p>
+			<p>Template by <a href="https://jagofps.dev" target="_blank" rel="noopener">jagoFps</a></p>
+		</footer>
+	</div>
+</section>
+
+<style>
+	.contact {
+		min-height: 100vh;
+		padding: var(--space-xl) 5%;
+		display: flex;
+		align-items: center;
+		background: var(--bg-secondary);
+	}
+
+	.container {
+		max-width: 1200px;
+		margin: 0 auto;
+		width: 100%;
+	}
+
+	h2 {
+		margin-bottom: var(--space-lg);
+	}
+
+	.contact-info {
+		margin-bottom: var(--space-xl);
+	}
+
+	.email {
+		font-family: var(--font-display);
+		font-size: clamp(32px, 6vw, 72px);
+		font-weight: 300;
+		color: var(--text-primary);
+		display: inline-block;
+		margin-bottom: var(--space-lg);
+		transition: color 0.3s;
+		line-height: 1.2;
+	}
+
+	.email:hover {
+		color: var(--accent);
+	}
+
+	.social {
+		display: flex;
+		gap: var(--space-md);
+		flex-wrap: wrap;
+	}
+
+	.social a {
+		font-size: 14px;
+		font-weight: 500;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		padding: 12px 24px;
+		border: 1px solid rgba(250, 250, 250, 0.2);
+		border-radius: 24px;
+		transition: all 0.2s;
+	}
+
+	.social a:hover {
+		border-color: var(--accent);
+		background: rgba(212, 175, 55, 0.1);
+		color: var(--accent);
+	}
+
+	.footer {
+		padding-top: var(--space-xl);
+		border-top: 1px solid rgba(250, 250, 250, 0.1);
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		flex-wrap: wrap;
+		gap: var(--space-sm);
+	}
+
+	.footer p {
+		font-size: 12px;
+	}
+
+	.footer a {
+		color: var(--accent);
+	}
+
+	/* Scroll animations */
+	.fade-in {
+		opacity: 0;
+		transform: translateY(60px);
+		animation: fade-slide-up linear both;
+		animation-timeline: view();
+		animation-range: entry 0% cover 40%;
+	}
+
+	.fade-in-delay {
+		opacity: 0;
+		transform: translateY(60px);
+		animation: fade-slide-up linear both;
+		animation-timeline: view();
+		animation-range: entry 0% cover 40%;
+		animation-delay: 0.1s;
+	}
+
+	.fade-in-delay-2 {
+		opacity: 0;
+		transform: translateY(60px);
+		animation: fade-slide-up linear both;
+		animation-timeline: view();
+		animation-range: entry 0% cover 40%;
+		animation-delay: 0.2s;
+	}
+
+	@keyframes fade-slide-up {
+		from {
+			opacity: 0;
+			transform: translateY(60px);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+
+	@media (max-width: 768px) {
+		.email {
+			font-size: 28px;
+		}
+
+		.social {
+			gap: var(--space-sm);
+		}
+
+		.footer {
+			flex-direction: column;
+			align-items: flex-start;
+		}
+	}
+</style>
